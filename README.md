@@ -2,7 +2,7 @@
 
 ## 🚀 Project Overview
 
-This project aims to build a convolutional neural network (CNN) model to detect breast cancer from medical images. The model was trained and evaluated using a large dataset of labeled images, achieving promising accuracy and balanced precision/recall metrics.
+This project aims to build a convolutional neural network (CNN) model to detect breast cancer from medical images. The model was trained and evaluated using a large dataset of labeled images **sourced from [Kaggle’s Breast Histopathology Images Dataset](https://www.kaggle.com/datasets/paultimothymooney/breast-histopathology-images)**, achieving promising accuracy and balanced precision/recall metrics.
 
 ---
 
