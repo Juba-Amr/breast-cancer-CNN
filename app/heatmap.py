@@ -1,10 +1,15 @@
 from PIL import Image, ImageDraw
 import json
 import os
+import numpy as np
 import matplotlib.cm as cm
 import matplotlib as mpl
+import pickle
 
-def construct_prediction_heatmap(original_image, predictions, output_path="data/clean/heatmaps/heatmap_result.png", cmap_name="jet"):
+with open("data/matrices.pkl", "rb") as f:
+    dict_of_matrices = pickle.load(f)
+
+def construct_prediction_heatmap(original_image, predictions, output_path="heatmaps/predicted_heatmap_result.png", cmap_name="jet"):
     os.makedirs("data/clean/heatmaps/", exist_ok=True)
     image = Image.open(original_image).convert("RGBA") 
     width, lenght = image.size
@@ -40,6 +45,25 @@ def construct_prediction_heatmap(original_image, predictions, output_path="data/
     return result 
 
 
-def construct_real_heatmap(patient_id):
-    
+def construct_real_heatmap(patient_id, output_path="heatmaps/predicted_heatmap_result.png"):
+    coords = dict_of_matrices[int(patient_id)]
+    (ymax, xmax) = np.shape(coords)
+    unique, counts = np.unique(coords, return_counts=True)
+
+    out = Image.new("RGB",(xmax*51,ymax*51),"white")
+    draw = ImageDraw.Draw(out)
+    for y in range(coords.shape[0]):     
+        for x in range(coords.shape[1]): 
+            i = coords[y][x]
+            i=int(i)
+
+            if i==1:
+                draw.rectangle((x*50,y*50,x*50 + 50, y*50 + 50), fill='red')
+            elif i==0:
+                draw.rectangle((x*50,y*50,x*50 + 50, y*50 + 50), fill='blue')
+
+    out.show()
+    out.save(output_path)
+    f"Saved heatmap to {output_path}"
+
     return None
