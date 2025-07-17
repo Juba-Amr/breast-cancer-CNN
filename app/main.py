@@ -7,21 +7,29 @@ from prediction import pred_results
 app = FastAPI()
 
 
-@app.POST('/')
+@app.post('/')
 async def predict_image(file: UploadFile = File() ):
-    contents = await file.read()
-    image = Image.open(io.BytesIO(contents))
+    try:
+        print("received request")
+        contents = await file.read()
+        print("read file into memory")
 
-    model_path = '../mode/model3/model_v5.keras'
-    patient_id = file.filename.split("_")[1]
-    
-    predictions = pred_results(image, model_path, patient_id)
+        image = Image.open(io.BytesIO(contents))
+        print("image converted")
 
-    formatted = [
-            {"patch": name, "prediction": pred.tolist()}  # pred is a NumPy array
-            for pred, name in predictions
-        ]
+        model_path = '../model/model3/model_v5.keras'
+        patient_id = file.filename.split("_")[1]
+        
+        predictions = pred_results(image, model_path, patient_id)
+        print("predictions computed")
 
-    return JSONResponse(content={"predictions": formatted})
+        formatted = [
+                {"patch": name, "prediction": pred.tolist()}  # pred is a NumPy array
+                for pred, name in predictions
+            ]
 
+        return JSONResponse(content={"predictions": formatted})
+    except Exceptions as e:
+        print(f'error : {e}')
+        return JSONResponse(status_code=500, content={"error":str(e)})
 
