@@ -1,7 +1,7 @@
 import tensorflow as tf
 from tensorflow.keras.models import load_model
-from preprocessing import preprocessing_function
-from separate import crop_slice_image
+from app.preprocessing import preprocessing_function
+from app.separate import crop_slice_image
 import numpy as np
 
 def patches_to_tf_dataset(patches_with_names):

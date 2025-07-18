@@ -1,6 +1,7 @@
 from PIL import Image
-from prediction import pred_results
-from heatmap import construct_prediction_heatmap, construct_real_heatmap
+from app.prediction import pred_results
+from app.heatmap import construct_prediction_heatmap, construct_real_heatmap
+from app.merge import merge_images
 
 def main():
     img_path = "./data/deployement/full_images/img_8918.png"
@@ -14,8 +15,9 @@ def main():
 
     #for pred, name in results:
     #    print(pred, name)
-    construct_prediction_heatmap(img_path, preds)
-    construct_real_heatmap(patient_id)
+    predhm =construct_prediction_heatmap(img_path, preds)
+    realhm =construct_real_heatmap(patient_id)
+    merge_images(predhm,realhm)
 
 if __name__ == "__main__":
     main()

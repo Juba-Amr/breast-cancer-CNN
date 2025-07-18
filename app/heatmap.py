@@ -11,7 +11,7 @@ with open("data/matrices.pkl", "rb") as f:
 
 def construct_prediction_heatmap(original_image, predictions, output_path="heatmaps/predicted_heatmap_result.png", cmap_name="jet"):
     os.makedirs("data/clean/heatmaps/", exist_ok=True)
-    image = Image.open(original_image).convert("RGBA") 
+    image = original_image.convert("RGBA")
     width, lenght = image.size
     overlay = Image.new("RGBA",(width,lenght))
     draw = ImageDraw.Draw(overlay)
@@ -19,9 +19,7 @@ def construct_prediction_heatmap(original_image, predictions, output_path="heatm
     cmap = cm.get_cmap(cmap_name)
     norm = mpl.colors.Normalize(vmin=0, vmax=1)
 
-    with open(predictions, 'r') as f:
-        preds = json.load(f)["predictions"]
-    for item in preds:
+    for item in predictions:
         patch_name = item["patch"] #eg 8918_x50_y600.png
         pred_value = item["prediction"][0]
 
@@ -34,18 +32,18 @@ def construct_prediction_heatmap(original_image, predictions, output_path="heatm
         
         rgba_float = cmap(norm(pred_value))
         rgba = tuple(int(255*c) for c in rgba_float)
-        print(rgba)
+        #print(rgba)
         draw.rectangle([x, y, x+50, y+50], fill=rgba)
     #print("image :", image.size)
     #print("overlay:", overlay.size)
     result = Image.alpha_composite(image, overlay)
     result.save(output_path)
     f"Saved heatmap to {output_path}"
-    result.show()
+    #result.show()
     return result 
 
 
-def construct_real_heatmap(patient_id, output_path="heatmaps/predicted_heatmap_result.png"):
+def construct_real_heatmap(patient_id, output_path="heatmaps/real_heatmap_result.png"):
     coords = dict_of_matrices[int(patient_id)]
     (ymax, xmax) = np.shape(coords)
     unique, counts = np.unique(coords, return_counts=True)
@@ -62,8 +60,8 @@ def construct_real_heatmap(patient_id, output_path="heatmaps/predicted_heatmap_r
             elif i==0:
                 draw.rectangle((x*50,y*50,x*50 + 50, y*50 + 50), fill='blue')
 
-    out.show()
+    #out.show()
     out.save(output_path)
     f"Saved heatmap to {output_path}"
 
-    return None
+    return out
