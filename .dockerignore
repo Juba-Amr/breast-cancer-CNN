@@ -1,0 +1,11 @@
+data/clean/
+data/raw/
+data/testings
+notebooks/
+.venv/
+.pytest_cache/
+images_for_analysing/
+.DS_Store
+Thumbs.db
+.git
+.gitignore
