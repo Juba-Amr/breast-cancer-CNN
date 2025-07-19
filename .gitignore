@@ -1,5 +1,6 @@
-/data/
-*.png
+data/clean/
+data/raw/
+data/testings
 .venv/
 .pytest_cache/
 app/__pycache__/
