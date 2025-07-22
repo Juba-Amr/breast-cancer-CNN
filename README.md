@@ -28,6 +28,27 @@ This project aims to build a convolutional neural network (CNN) model to detect 
 
 ---
 
+## 🖼️ Results & Deployment
+### 🔬 Tumor Detection Output (Example)
+
+Here is an example of a prediction made by the model with a corresponding heatmap:
+
+![Original Image](data/deployement/full_images/img_9225.png)
+![Heatmap Prediction](heatmaps/predicted_heatmap_result.png)
+![Real Tumors Placement](heatmaps/real_heatmap_result.png)
+
+
+### ⚙️ API & Docker Deployment
+
+To make the model usable by clinicians or external systems, I developed a REST API using **FastAPI**. The API accepts histology images, processes them, and returns the classification result along with a heatmap highlighting potential tumor zones.
+
+The full application is containerized using **Docker** for easy deployment and scalability. It was tested and deployed on an **AWS EC2 instance**, allowing remote access and facilitating integration in clinical workflows or research platforms.
+
+The repo contains:
+- `app/` folder with FastAPI logic
+- `Dockerfile` for image building
+- `notebooks/` to see the model creation steps
+
 ## 🛠️ Technologies & Tools
 
 - TensorFlow / Keras for model building and training
@@ -35,5 +56,6 @@ This project aims to build a convolutional neural network (CNN) model to detect 
 - Kaggle for dataset and notebook environment
 - Matplotlib, OpenCV for visualization
 - Git & GitHub for version control
-
+- FastAPI and Docker for smooth deployement
 ---
+
