@@ -31,7 +31,7 @@ This project aims to build a convolutional neural network (CNN) model to detect 
 ## 🖼️ Results & Deployment
 ### 🔬 Tumor Detection Output (Example)
 
-Here is an example of a prediction made by the model with a corresponding heatmap:
+Here is an example of a prediction made by the model with a corresponding heatmap and the map of real tumors placement:
 
 ![Original Image](data/deployement/full_images/img_9225.png)
 ![Heatmap Prediction](heatmaps/predicted_heatmap_result.png)
