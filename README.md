@@ -47,7 +47,8 @@ The full application is containerized using **Docker** for easy deployment and s
 The repo contains:
 - `app/` folder with FastAPI logic
 - `Dockerfile` for image building
-- `notebooks/` to see the model creation steps
+- `breast_cancer_cnn_presentation.pdf` walks you throught all the steps and my thought process of creating the model and evaluating its performances
+- `notebooks/` where model creation and training took place 
 
 ## 🛠️ Technologies & Tools
 
